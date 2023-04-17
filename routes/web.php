@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return ['Laravel' => app()->version()];
+    return Inspiring::quote();
 });
-
-require __DIR__.'/auth.php';
