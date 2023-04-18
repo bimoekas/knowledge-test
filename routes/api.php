@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,12 @@ Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth:sanctum')
     ->name('logout');
 
-
+Route::group([
+    'middleware' => 'auth:sanctum',
+    'prefix' => 'v1/student'
+], function () {
+    Route::get('/', [StudentController::class, 'index']);
+    Route::post('/', [StudentController::class, 'store']);
+    Route::put('/{student}', [StudentController::class, 'update'])->whereUlid('student');
+    Route::delete('/{student}', [StudentController::class, 'destroy'])->whereUlid('student');
+});
