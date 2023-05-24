@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 
 /*
@@ -25,6 +26,15 @@ Route::get('/me', [AuthController::class, 'me'])
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth:sanctum')
     ->name('logout');
+
+Route::group([
+    'middleware' => 'auth:sanctum',
+    'prefix' => 'v1/profile'
+], function () {
+    Route::get('/', [ProfileController::class, 'get']);
+    Route::put('/', [ProfileController::class, 'update']);
+    Route::patch('/', [ProfileController::class, 'change']);
+});
 
 Route::group([
     'middleware' => 'auth:sanctum',
